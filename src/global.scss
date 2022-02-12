@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,40 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+.container-full-flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+}
+
+.container-100 {
+  width: 100%;
+  height: 100%;
+
+  padding: 20px;
+
+  overflow-y: auto;
+}
+
+form {
+  width: 80%;
+
+  ion-input {
+    width: 100%;
+    margin-bottom: 20px;
+
+    padding: 10px;
+    border-bottom: 1px solid gray;
+  }
+}
+
+.sign-in-up-page-switch-container {
+  width: 80%;
+  margin-top: 40px;
+  text-align: center;
+}

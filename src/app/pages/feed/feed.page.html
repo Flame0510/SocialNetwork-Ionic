@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Feed</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="container" *ngIf="posts">
+  <div
+    *ngFor="let post of posts, index as postIndex"
+    class="post"
+    (dblclick)="like(post.id, postIndex)"
+  >
+    <img [src]="post.imageUrl" />
+    <p>{{post.creator.nickname}}</p>
+    <p>{{post.message}}</p>
+    <div class="like-comments-container">
+      <span>Like: {{post.likes.length}}</span>
+      <span (click)="openComments(postIndex)"
+        >Commenti: {{post.comments.length}}</span
+      >
+    </div>
+  </div>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>
+
+<ion-modal [isOpen]="createPostModalVisibilty">
+  <ng-template>
+    <div class="modal container-full-flex-center">
+      <ion-icon
+        id="close-btn"
+        name="close-outline"
+        (click)="toggleCreatePostModal()"
+      ></ion-icon>
+      <h3>Crea Post</h3>
+      <form [formGroup]="form" (ngSubmit)="publish()">
+        <ion-input
+          formControlName="imgUrl"
+          placeholder="Url Immagine"
+        ></ion-input>
+        <ion-input formControlName="caption" placeholder="Testo"></ion-input>
+        <ion-button type="submit" expand="block" color="medium">
+          Pubblica
+        </ion-button>
+      </form>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<ion-modal [isOpen]="commentsModalVisibility">
+  <ng-template>
+    <div class="modal container-100">
+      <ion-icon
+        id="close-btn"
+        name="close-outline"
+        (click)="toggleCommentsModal()"
+      ></ion-icon>
+      <h3>Commenti</h3>
+      <div class="comments-container">
+        <div *ngFor="let comment of postSelected.comments" class="comment">
+          <span id="nickname">{{comment.user.nickname}}</span>
+          <span id="message">{{comment.message}}</span>
+        </div>
+      </div>
+      <div class="create-comment-container">
+        <div class="create-comment">
+          <ion-input
+            [formControl]="comment"
+            placeholder="Commento..."
+          ></ion-input>
+          <ion-button color="medium" expand="block" (click)="publishComment()">
+            Pubblica
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<ion-button
+  id="create-post-btn"
+  expand="full"
+  color="medium"
+  (click)="toggleCreatePostModal()"
+  >Crea Post</ion-button
+>
