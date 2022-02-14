@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
 
-import { Storage } from '@ionic/storage-angular';
 import { StorageService } from 'src/app/services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -30,44 +30,51 @@ export class FeedPage implements OnInit {
   posts = [];
 
   constructor(
+    private router: Router,
     private apiService: ApiService,
-    private storage: Storage,
     private storageService: StorageService
   ) {}
 
   async ngOnInit() {
-    console.log(await this.storage.get('accessToken'));
+    console.log(await this.storageService.get('accessToken'));
     this.getPosts();
     this.getUserData();
 
-    this.storageService.remove('accessToken')
+    //this.router.navigate(['chats']);
+
+    //this.storageService.remove('accessToken')
   }
 
-  publish = () =>
-    this.apiService
-      .publish(
+  publish = async () => {
+    try {
+      await this.apiService.publish(
         this.form.controls.caption.value,
         this.form.controls.imgUrl.value
-      )
-      .subscribe(
-        (result) => (
-          this.posts.unshift({
-            creator: { nickname: this.userData.nickname },
-            message: this.form.controls.caption.value,
-            imageUrl: this.form.controls.imgUrl.value,
-            likes: [],
-            comments: [],
-          }),
-          this.toggleCreatePostModal()
-        ),
-        (err) => this.storageService.remove('accessToken')
       );
+      this.posts.unshift({
+        creator: { nickname: this.userData.nickname },
+        message: this.form.controls.caption.value,
+        imageUrl: this.form.controls.imgUrl.value,
+        likes: [],
+        comments: [],
+      });
+      this.toggleCreatePostModal();
+    } catch (error) {
+      console.log(error);
+      error.status === 401 && this.storageService.remove('accessToken');
+    }
+  };
 
   toggleCreatePostModal = () =>
     (this.createPostModalVisibilty = !this.createPostModalVisibilty);
 
-  getUserData = () =>
-    this.apiService.me().subscribe((result) => (this.userData = result));
+  getUserData = async () => {
+    try {
+      this.userData = await this.apiService.me();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   like = (postId: string, postIndex: number) => {
     const addLike = this.posts[postIndex].likes.find(
@@ -106,6 +113,8 @@ export class FeedPage implements OnInit {
           message: this.comment.value,
           user: { id: this.userData.id, nickname: this.userData.nickname },
         });
+
+        this.comment.reset();
       });
 
   getPosts = (event?: any) =>

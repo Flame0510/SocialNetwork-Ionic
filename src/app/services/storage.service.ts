@@ -6,9 +6,16 @@ import { Storage } from '@ionic/storage-angular';
   providedIn: 'root',
 })
 export class StorageService {
+  private myStorage: Storage;
   constructor(private storage: Storage) {}
 
-  get = async (key: string) => await this.storage.get(key);
 
-  remove = async (key: string) => await this.storage.remove(key);
+
+  createStorage = async () =>  !this.myStorage && (this.myStorage = await this.storage.create());
+  
+  get = <T> (key: 'accessToken'): Promise<T> => this.myStorage.get(key);
+
+   set = (key: 'accessToken', value: any) => this.myStorage?.set(key, value);
+
+  remove = (key: 'accessToken') => this.myStorage.remove(key);
 }

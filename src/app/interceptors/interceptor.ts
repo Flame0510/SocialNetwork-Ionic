@@ -26,10 +26,7 @@ export class Interceptor implements HttpInterceptor {
     'Content-Type': 'application/json; charset=utf-8',
   });
 
-  constructor(
-    private storage: Storage,
-    private storageService: StorageService
-  ) {}
+  constructor(private storageService: StorageService) {}
 
   intercept(
     httpRequest: HttpRequest<any>,
@@ -37,8 +34,8 @@ export class Interceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     if (
       this.loggedRoute.some((endpoint) => httpRequest.url.includes(endpoint))
-    ) {      
-      return from(this.storage.get('accessToken')).pipe(
+    ) {
+      return from(this.storageService.get('accessToken')).pipe(
         switchMap((accessToken) => {
           httpRequest = httpRequest.clone({
             headers: this.baseHeader.set(

@@ -1,5 +1,7 @@
 {
   "name": "SocialNetwork-Ionic",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

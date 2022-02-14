@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-icon
+      slot="start"
+      name="chevron-back-outline"
+      (click)="router.navigate(['chats'])"
+    ></ion-icon>
+    <ion-title>{{chat && chat.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="container dark-bg" *ngIf="chat">
+  <div class="chat">
+    <div
+      *ngFor="let message of chat.messages"
+      [ngClass]="'message-container' + (message.creator.id === userData.id ? ' message-right-container' : ' message-left-container')"
+    >
+      <div class="message">
+        <span>{{message.creator.nickname}}</span>
+        <span>{{message.message}}</span>
+        <span
+          >{{message.date.replace('T', ' ').substring(0,
+          message.date.lastIndexOf('.'))}}</span
+        >
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <input
+      type="text"
+      placeholder="Write a message..."
+      [formControl]="message"
+    />
+    <ion-icon name="send" (click)="send()"></ion-icon>
+  </div>
+</div>

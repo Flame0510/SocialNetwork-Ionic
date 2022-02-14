@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-icon
+      slot="start"
+      name="chevron-back-outline"
+      (click)="router.navigate(['feed'])"
+    ></ion-icon>
+    <ion-title> Chats</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="container dark-bg">
+  <div class="chats-container">
+    <button
+      class="chat"
+      *ngFor="let chat of chats"
+      (click)="router.navigate(['chat/' + chat.id])"
+    >
+      <span id="name">{{chat.title}}</span>
+      <span id="users">Utenti nella chat: {{chat.users.length}}</span>
+    </button>
+  </div>
+</div>
+
+<ion-modal [isOpen]="createChatModalVisibilty">
+  <ng-template color="dark">
+    <div class="modal container-full-flex-center dark">
+      <ion-icon
+        id="close-btn"
+        name="close-outline"
+        (click)="toggleCreateChatModal()"
+      ></ion-icon>
+      <h3>Crea Post</h3>
+      <div>
+        <ion-input [formControl]="chatName" placeholder="Chat Name"></ion-input>
+        <button
+        class="light full-btn radius"  
+        type="submit"
+          
+          (click)="createChat()"
+        >
+          Crea Chat
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</ion-modal>
+
+<button
+  class="dark"
+  id="bottom-btn"
+  expand="full"
+  (click)="toggleCreateChatModal()"
+>
+  Crea Chat
+</button>

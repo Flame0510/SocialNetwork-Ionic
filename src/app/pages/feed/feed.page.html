@@ -1,10 +1,15 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="dark">
     <ion-title>Feed</ion-title>
+    <ion-icon
+      name="send"
+      slot="primary"
+      (click)="router.navigate(['chats'])"
+    ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="container" *ngIf="posts">
+<div class="container dark-bg" *ngIf="posts">
   <div
     *ngFor="let post of posts, index as postIndex"
     class="post"
@@ -25,11 +30,11 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-</ion-content>
+</div>
 
 <ion-modal [isOpen]="createPostModalVisibilty">
   <ng-template>
-    <div class="modal container-full-flex-center">
+    <div class="modal container-full-flex-center dark">
       <ion-icon
         id="close-btn"
         name="close-outline"
@@ -42,7 +47,7 @@
           placeholder="Url Immagine"
         ></ion-input>
         <ion-input formControlName="caption" placeholder="Testo"></ion-input>
-        <ion-button type="submit" expand="block" color="medium">
+        <ion-button type="submit" expand="block" color="light">
           Pubblica
         </ion-button>
       </form>
@@ -52,7 +57,7 @@
 
 <ion-modal [isOpen]="commentsModalVisibility">
   <ng-template>
-    <div class="modal container-100">
+    <div class="modal container-100 dark">
       <ion-icon
         id="close-btn"
         name="close-outline"
@@ -71,7 +76,7 @@
             [formControl]="comment"
             placeholder="Commento..."
           ></ion-input>
-          <ion-button color="medium" expand="block" (click)="publishComment()">
+          <ion-button color="light" expand="block" (click)="publishComment()">
             Pubblica
           </ion-button>
         </div>
@@ -80,10 +85,11 @@
   </ng-template>
 </ion-modal>
 
-<ion-button
-  id="create-post-btn"
+<button
+  class="dark"
+  id="bottom-btn"
   expand="full"
-  color="medium"
   (click)="toggleCreatePostModal()"
-  >Crea Post</ion-button
 >
+  Crea Post
+</button>

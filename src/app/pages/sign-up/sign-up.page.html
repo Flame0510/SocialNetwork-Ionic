@@ -1,20 +1,27 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Registrati</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<div class="container-full-flex-center">
+<div class="container-full-flex-center dark">
+  <h2>Registrazione</h2>
   <form [formGroup]="form" (ngSubmit)="signUp()">
-    <ion-input formControlName="nickname" placeholder="Nickname"></ion-input>
-    <ion-input formControlName="password" placeholder="Password"></ion-input>
-    <ion-button type="submit" expand="block" color="medium">
-      Registrati
-    </ion-button>
+    <ion-input
+      formControlName="nickname"
+      placeholder="Nickname"
+      required
+    ></ion-input>
+    <ion-input formControlName="phone" placeholder="Phone" required></ion-input>
+    <ion-input
+      formControlName="password"
+      placeholder="Password"
+      required
+    ></ion-input>
+    <button type="submit" class="light full-btn border">Registrati</button>
   </form>
 
   <div class="sign-in-up-page-switch-container">
     <h3>Hai già un account?</h3>
-    <ion-button expand="block" color="medium" (click)="router.navigate(['sign-in'])">Accedi</ion-button>
+    <button
+      class="light full-btn radius"
+      (click)="router.navigate(['sign-in'])"
+    >
+      Accedi
+    </button>
   </div>
 </div>

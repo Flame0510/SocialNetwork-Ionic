@@ -1,26 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
-import { StorageService } from './storage.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private apiService: ApiService,
-    private storageService: StorageService
-  ) {}
+  response = false;
+  constructor(private apiService: ApiService, private storage: Storage) {}
 
-  checkToken = () => {
-    let response = false;
-
-    console.log(this.storageService.get('accessToken'));
-
-    this.apiService.me().subscribe(
-      (result) => (response = true),
-      (err) => false
-    );
-
-    return response;
+  checkToken = async () => {
+    try {
+      await this.apiService.me();
+      return true;
+    } catch (error) {
+      return false;
+    }
   };
 }

@@ -1,18 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Accedi</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<div class="container-full-flex-center">
-    <form [formGroup]="form" (ngSubmit)="signIn()">
-      <ion-input formControlName="nickname" placeholder="Nickname"></ion-input>
-      <ion-input formControlName="password" placeholder="Password"></ion-input>
-      <ion-button type="submit" expand="block" color="medium">Accedi</ion-button>
-    </form>
+<div class="container-full-flex-center dark">
+  <h2>Accesso</h2>
+  <form [formGroup]="form" (ngSubmit)="signIn()">
+    <ion-input
+      formControlName="nickname"
+      placeholder="Nickname"
+      required
+    ></ion-input>
+    <ion-input
+      formControlName="password"
+      placeholder="Password"
+      required
+    ></ion-input>
+    <button type="submit" class="light full-btn border">Accedi</button>
+  </form>
 
   <div class="sign-in-up-page-switch-container">
     <h3>Non hai un account?</h3>
-    <ion-button expand="block" color="medium" (click)="router.navigate(['sign-up'])">Registrati</ion-button>
+    <button
+      class="light full-btn radius"
+      (click)="router.navigate(['sign-up'])"
+    >
+      Registrati
+    </button>
   </div>
 </div>
