@@ -1,18 +1,24 @@
 <ion-header>
   <ion-toolbar color="dark">
+    <ion-icon name="person" slot="start" (click)="router.navigate(['account'])">
+    </ion-icon>
+    <ion-title>Feed</ion-title>
+
     <ion-icon
       name="people"
       slot="primary"
       id="users-btn"
       (click)="router.navigate(['users'])"
-    ></ion-icon>
-    <ion-title>Feed</ion-title>
+    >
+    </ion-icon>
+
     <ion-icon
       name="chatbubbles"
       slot="end"
       id="chats-btn"
       (click)="router.navigate(['chats'])"
-    ></ion-icon>
+    >
+    </ion-icon>
   </ion-toolbar>
 </ion-header>
 

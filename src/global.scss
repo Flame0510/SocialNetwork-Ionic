@@ -43,6 +43,8 @@
 
   width: 100%;
   height: 100%;
+
+  overflow-y: auto;
 }
 
 .container-full {
@@ -95,6 +97,11 @@ form,
 .light {
   color: #000;
   background: #fff;
+}
+
+.red {
+  color: #fff;
+  background: red;
 }
 
 .full-btn {

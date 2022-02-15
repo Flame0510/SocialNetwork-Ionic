@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'users',
     loadChildren: () => import('./pages/users/users.module').then( m => m.UsersPageModule)
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./pages/account/account.module').then( m => m.AccountPageModule)
   }
 ];
 @NgModule({

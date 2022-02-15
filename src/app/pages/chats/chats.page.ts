@@ -10,31 +10,6 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ChatsPage implements OnInit {
   chats: any;
-  /*  = [
-    {
-      id: 1,
-      name: 'chat 1',
-      users: [{ id: '1' }, { id: '1' }, { id: '1' }, { id: '1' }],
-    },
-    {
-      id: 2,
-      name: 'chat 2',
-      users: [{ id: '1' }, { id: '1' }],
-    },
-    {
-      id: 3,
-      name: 'chat 3',
-      users: [
-        { id: '1' },
-        { id: '1' },
-        { id: '1' },
-        { id: '1' },
-        { id: '1' },
-        { id: '1' },
-        { id: '1' },
-      ],
-    },
-  ]; */
 
   chatName = new FormControl();
 
