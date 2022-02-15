@@ -32,7 +32,7 @@
     <p>{{post.creator.nickname}}</p>
     <p>{{post.message}}</p>
     <div class="like-comments-container">
-      <span>Like: {{post.likes.length}}</span>
+      <span (click)="like(post.id, postIndex)">Like: {{post.likes.length}}</span>
       <span (click)="openComments(postIndex)"
         >Commenti: {{post.comments.length}}</span
       >
