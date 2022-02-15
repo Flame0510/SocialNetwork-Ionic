@@ -32,7 +32,9 @@
     <p>{{post.creator.nickname}}</p>
     <p>{{post.message}}</p>
     <div class="like-comments-container">
-      <span (click)="like(post.id, postIndex)">Like: {{post.likes.length}}</span>
+      <span (click)="like(post.id, postIndex)"
+        >Like: {{post.likes.length}}</span
+      >
       <span (click)="openComments(postIndex)"
         >Commenti: {{post.comments.length}}</span
       >
@@ -60,9 +62,7 @@
           placeholder="Url Immagine"
         ></ion-input>
         <ion-input formControlName="caption" placeholder="Testo"></ion-input>
-        <ion-button type="submit" expand="block" color="light">
-          Pubblica
-        </ion-button>
+        <button type="submit" class="full-btn light radius">Pubblica</button>
       </form>
     </div>
   </ng-template>
@@ -89,20 +89,19 @@
             [formControl]="comment"
             placeholder="Commento..."
           ></ion-input>
-          <ion-button color="light" expand="block" (click)="publishComment()">
+          <button
+            class="full-btn light radius"
+            expand="block"
+            (click)="publishComment()"
+          >
             Pubblica
-          </ion-button>
+          </button>
         </div>
       </div>
     </div>
   </ng-template>
 </ion-modal>
 
-<button
-  class="dark"
-  id="bottom-btn"
-  expand="full"
-  (click)="toggleCreatePostModal()"
->
+<button class="dark" id="bottom-btn" (click)="toggleCreatePostModal()">
   Crea Post
 </button>

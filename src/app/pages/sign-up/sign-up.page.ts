@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -19,11 +19,13 @@ export class SignUpPage implements OnInit {
   constructor(
     private router: Router,
     private apiService: ApiService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {}
 
+  //TOASTS
   async successToast() {
     const toast = await this.toastController.create({
       message: 'Registrazione effettuata!',
@@ -51,9 +53,22 @@ export class SignUpPage implements OnInit {
     toast.present();
   }
 
+  //LOADER
+  async loading() {
+    const loading = await this.loadingController.create({
+      cssClass: 'radius',
+      duration: 500,
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
+  }
+
   signUp = async () => {
     if (this.form.valid) {
       try {
+        await this.loading();
         await this.apiService.signUp(
           this.form.controls.nickname.value,
           this.form.controls.phone.value,
