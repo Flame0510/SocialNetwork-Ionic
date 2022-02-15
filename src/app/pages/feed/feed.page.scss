@@ -1,5 +1,5 @@
 ion-toolbar {
-  ion-icon{
+  ion-icon {
     margin: 0 10px;
   }
 }
@@ -12,12 +12,35 @@ ion-toolbar {
   .post {
     margin: 40px 20px;
 
+    .image-container {
+      position: relative;
+
+      .icon-container {
+        position: absolute;
+
+        ion-icon {
+          font-size: 60px;
+
+          transition: 0.5s;
+        }
+      }
+    }
+
     .like-comments-container {
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       width: 100%;
+
+      div {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-left: 10px;
+        }
+      }
     }
   }
 }
@@ -25,6 +48,14 @@ ion-toolbar {
 .comments-container {
   margin-top: 20px;
   padding-bottom: 120px;
+}
+
+#no-comments {
+  margin-top: 50px;
+
+  color: lighten(#000, 50%);
+
+  text-align: center;
 }
 
 .comment {

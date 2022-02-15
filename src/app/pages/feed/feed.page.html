@@ -23,21 +23,36 @@
 </ion-header>
 
 <ion-content class="container" color="dark" *ngIf="posts">
-  <div
-    *ngFor="let post of posts, index as postIndex"
-    class="post"
-    (dblclick)="like(post.id, postIndex)"
-  >
-    <img [src]="post.imageUrl" />
+  <div *ngFor="let post of posts, index as postIndex" class="post">
+    <div
+      class="image-container"
+      (dblclick)="checkLike(post.likes) ? showLike(post.id) : like(post.id, postIndex)"
+    >
+      <div class="icon-container container-full-flex-center">
+        <ion-icon
+          [ngClass]="showedLikePostId === post.id ? 'opacity-1' : 'opacity-0'"
+          name="heart"
+          color="danger"
+        ></ion-icon>
+      </div>
+      <img [src]="post.imageUrl" />
+    </div>
+
     <p>{{post.creator.nickname}}</p>
     <p>{{post.message}}</p>
     <div class="like-comments-container">
-      <span (click)="like(post.id, postIndex)"
-        >Like: {{post.likes.length}}</span
-      >
-      <span (click)="openComments(postIndex)"
-        >Commenti: {{post.comments.length}}</span
-      >
+      <div (click)="like(post.id, postIndex)">
+        <ion-icon
+          name="heart"
+          [color]="checkLike(post.likes) ? 'danger' : 'light'"
+        ></ion-icon>
+        <span>{{post.likes.length}}</span>
+      </div>
+      <div (click)="openComments(postIndex)">
+        <ion-icon name="chatbubble-ellipses"></ion-icon>
+
+        <span>{{post.comments.length}}</span>
+      </div>
     </div>
   </div>
 
@@ -77,12 +92,17 @@
         (click)="toggleCommentsModal()"
       ></ion-icon>
       <h3>Commenti</h3>
-      <div class="comments-container">
+      <div class="comments-container" *ngIf="postSelected.comments.length > 0">
         <div *ngFor="let comment of postSelected.comments" class="comment">
           <span id="nickname">{{comment.user.nickname}}</span>
           <span id="message">{{comment.message}}</span>
         </div>
       </div>
+
+      <p id="no-comments" *ngIf="postSelected.comments.length === 0">
+        Non ci sono commenti
+      </p>
+
       <div class="create-comment-container">
         <div class="create-comment">
           <ion-input

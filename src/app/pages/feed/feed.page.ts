@@ -18,6 +18,8 @@ export class FeedPage implements OnInit {
 
   comment = new FormControl();
 
+  showedLikePostId: string;
+
   userData: any;
 
   postNumber: number = 5;
@@ -76,12 +78,24 @@ export class FeedPage implements OnInit {
     }
   };
 
+  checkLike = (likes: any) =>
+    likes.find(({ id }) => id === this.userData.id) ? true : false;
+
+  showLike = (postId: string) => {
+    this.showedLikePostId = postId;
+    setTimeout(() => {
+      this.showedLikePostId = undefined;
+    }, 1000);
+  };
+
   like = (postId: string, postIndex: number) => {
     const addLike = this.posts[postIndex].likes.find(
       ({ id }) => id === this.userData.id
     )
       ? false
       : true;
+
+    addLike && this.showLike(postId);
 
     this.apiService.like(postId, addLike).subscribe(() =>
       addLike
