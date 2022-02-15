@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-chat',
@@ -14,21 +15,35 @@ export class ChatPage implements OnInit {
 
   message = new FormControl();
 
-  chat: IChat | Partial<IChat> | undefined;
+  chat: any | IChat | Partial<IChat> | undefined;
 
   userData: any;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private toastController: ToastController
   ) {}
 
   ngOnInit() {
     this.chatId = this.route.snapshot.paramMap.get('id');
     this.getUserData();
     this.getChat();
-    //this.joinChat();
+    this.joinChat();
+
+    setInterval(() => {
+      this.getChat();
+    }, 1000);
+  }
+
+  async errorToast() {
+    const toast = await this.toastController.create({
+      message: "Errore nell'invio del messaggio, riprova.",
+      duration: 2000,
+      color: 'danger',
+    });
+    toast.present();
   }
 
   getUserData = async () => {
@@ -55,16 +70,26 @@ export class ChatPage implements OnInit {
     }
   };
 
-  send = () => {
+  send = async () => {
     try {
-      const date = new Date()
+      const message = await this.apiService.sendMessage(
+        this.chatId,
+        this.message.value
+      );
+
+      /* const date = new Date()
         .toLocaleString()
         .split('/')
         .join('-')
         .split(',')
-        .join(' - ');
+        .join(' - '); */
 
-      this.chat.messages.push({
+      console.log(message);
+
+      this.getChat();
+
+      //this.chat.messages.push(message);
+      /* 
         message: this.message.value,
         creator: {
           nickname: this.userData.nickname,
@@ -72,11 +97,11 @@ export class ChatPage implements OnInit {
         },
         id: '1',
         date: date,
-      });
+      }); */
 
       this.message.reset();
     } catch (err) {
-      console.log(err);
+      await this.errorToast();
     }
   };
 }

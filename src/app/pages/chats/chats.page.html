@@ -31,12 +31,11 @@
         (click)="toggleCreateChatModal()"
       ></ion-icon>
       <h3>Crea Post</h3>
-      <div>
+      <div class="modal-form">
         <ion-input [formControl]="chatName" placeholder="Chat Name"></ion-input>
         <button
-        class="light full-btn radius"  
-        type="submit"
-          
+          class="light full-btn radius"
+          type="submit"
           (click)="createChat()"
         >
           Crea Chat

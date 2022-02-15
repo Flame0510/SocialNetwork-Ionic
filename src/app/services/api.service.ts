@@ -24,7 +24,9 @@ export class ApiService {
     this.http.post(`${apiLink}/feeds/${id}/likes`, { like });
 
   signUp = (nickname: string, phone: string, password: string) =>
-    this.http.post(`${apiLink}/signin`, { nickname, phone, password }).toPromise();
+    this.http
+      .post(`${apiLink}/signin`, { nickname, phone, password })
+      .toPromise();
 
   login = (nickname: string, password: string) =>
     this.http
@@ -33,8 +35,10 @@ export class ApiService {
 
   me = () => this.http.get(`${apiLink}/me`).toPromise();
 
-  //CHAT
+  getUsers = () => this.http.get(`${apiLink}/users`).toPromise();
+  
 
+  //CHAT
   getChats = () => this.http.get(`${apiLink}/chats`).toPromise();
 
   getChat = (id: string) => this.http.get(`${apiLink}/chats/${id}`).toPromise();
@@ -44,4 +48,7 @@ export class ApiService {
 
   createChat = (title: string, imageUrl: string) =>
     this.http.post(`${apiLink}/chats`, { title, imageUrl }).toPromise();
+
+  sendMessage = (id: string, message: string) =>
+    this.http.post(`${apiLink}/chats/${id}/messages`, { message }).toPromise();
 }

@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-icon
+      slot="start"
+      name="chevron-back-outline"
+      (click)="router.navigate(['feed'])"
+    ></ion-icon>
+    <ion-title>Utenti</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="container-full dark m-0">
+  <ion-list class="users-container m-0" *ngIf="users">
+    <ion-item
+      class="user"
+      *ngFor="let user of users"
+      color="dark"
+    >
+      <p id="nickname" (click)="sendMessage(user)">{{user.nickname}}:</p>
+      <p id="phone" (click)="call(user)">{{user.phone}}</p>
+    </ion-item>
+  </ion-list>
+</div>

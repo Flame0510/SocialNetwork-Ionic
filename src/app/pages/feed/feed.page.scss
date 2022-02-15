@@ -1,6 +1,10 @@
 ion-toolbar {
-  ion-icon {
-    margin-right: 20px;
+  #user-btn {
+    margin: 0 20px;
+  }
+
+  #chats-btn {
+    margin: 0 20px;
   }
 }
 
@@ -41,7 +45,7 @@ ion-toolbar {
 
 .create-comment-container {
   width: 100%;
-  background: #000;
+  background: #2c2c2c;
 
   position: absolute;
   left: 0;
@@ -51,6 +55,11 @@ ion-toolbar {
     width: 100%;
 
     padding: 20px;
+
+    ion-input {
+      margin-bottom: 20px;
+      border-bottom: 1px solid gray;
+    }
   }
 }
 

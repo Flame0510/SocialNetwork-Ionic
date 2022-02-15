@@ -1,0 +1,24 @@
+ion-toolbar {
+  ion-icon {
+    margin-left: 20px;
+  }
+}
+
+.users-container {
+  padding: 0;
+
+  .user {
+    border-bottom: 1px solid gray;
+    p {
+      width: 50%;  
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    #phone {
+      text-align: right;
+    }
+  }
+}

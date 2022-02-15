@@ -19,7 +19,7 @@ export interface IChat {
       message: string;
       creator: {
         nickname: string;
-        phone?: string;
+        phone: string;
         id: string;
       };
       id: string;

@@ -15,7 +15,7 @@ import { StorageService } from '../services/storage.service';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-  loggedRoute = ['/feeds', '/me'];
+  loggedRoute = ['/feeds', '/me', '/chats'];
 
   accessToken: string = '';
 
@@ -33,7 +33,8 @@ export class Interceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     if (
-      this.loggedRoute.some((endpoint) => httpRequest.url.includes(endpoint))
+      this.loggedRoute.some((endpoint) => httpRequest.url.includes(endpoint))/*  &&
+      httpRequest.method !== 'GET' */
     ) {
       return from(this.storageService.get('accessToken')).pipe(
         switchMap((accessToken) => {

@@ -59,12 +59,12 @@ export class ChatsPage implements OnInit {
 
   createChat = async () => {
     try {
-      await this.apiService.createChat(
+      const response = await this.apiService.createChat(
         this.chatName.value,
         'https://www.goodworking.it/wp-content/uploads/2020/10/Live-Chat-per-WordPress.jpg'
       );
-      this.chats.push({ id: 4, title: this.chatName.value, users: [] }),
-        this.toggleCreateChatModal();
+      this.chats.push(response);
+      this.toggleCreateChatModal();
     } catch (error) {
       console.log(error);
     }

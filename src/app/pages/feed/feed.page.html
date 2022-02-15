@@ -1,15 +1,22 @@
 <ion-header>
   <ion-toolbar color="dark">
+    <ion-icon
+      name="people"
+      slot="primary"
+      id="users-btn"
+      (click)="router.navigate(['users'])"
+    ></ion-icon>
     <ion-title>Feed</ion-title>
     <ion-icon
-      name="send"
-      slot="primary"
+      name="chatbubbles"
+      slot="end"
+      id="chats-btn"
       (click)="router.navigate(['chats'])"
     ></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<div class="container dark-bg" *ngIf="posts">
+<ion-content class="container" color="dark" *ngIf="posts">
   <div
     *ngFor="let post of posts, index as postIndex"
     class="post"
@@ -30,7 +37,7 @@
     <ion-infinite-scroll-content loadingSpinner="bubbles">
     </ion-infinite-scroll-content>
   </ion-infinite-scroll>
-</div>
+</ion-content>
 
 <ion-modal [isOpen]="createPostModalVisibilty">
   <ng-template>
